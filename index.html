@@ -129,6 +129,12 @@ let iconFile = iconMap[iconCode] || 'default.svg'; // Fallback to 'default.svg' 
     let iconUrl = `./images/${iconFile}`;
     document.getElementById('weather-icon-img').src = iconUrl;
     document.getElementById('weather-icon-img').alt = responseDescription;n;
+
+     // Show the icon by changing the display style to 'block' or remove the 'hidden' class
+    let weatherIconImg = document.getElementById('weather-icon-img');
+    weatherIconImg.src = iconUrl;
+    weatherIconImg.alt = responseDescription;
+    weatherIconImg.style.display = 'block';  // This makes the image visible
 }
 
         
