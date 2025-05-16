@@ -15,8 +15,8 @@
         <div class="weather-info">
             <h1 id="city-name">City Name</h1>
             <div class="weather-icon">
-    <img id="weather-icon-img" src="-"  alt="">
-</div>
+                <img id="weather-icon-img" src="-" alt="" style="display: none;">
+            </div>
             <div class="temperature">-</div>
             <div class="description">-</div>
             <div class="details">
@@ -37,107 +37,78 @@
     </div>
 
     <script>
-async function fetchWeatherData() {
-    let cityName = document.getElementById("city-input").value;
-    let requestData = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=9bd18eab81d1c5b21ba3f2c860770f96&units=metric`);
-    let formattedData = await requestData.json();
-    
-    let responseCityName = formattedData.name;
-    document.getElementById('city-name').innerHTML = responseCityName;
+        async function fetchWeatherData() {
+            let cityName = document.getElementById("city-input").value;
+            let requestData = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=9bd18eab81d1c5b21ba3f2c860770f96&units=metric`);
+            let formattedData = await requestData.json();
 
-    let responseTemperature = formattedData.main.temp;
-    document.getElementsByClassName('temperature')[0].innerHTML = responseTemperature + "°C";
+            let responseCityName = formattedData.name;
+            document.getElementById('city-name').innerHTML = responseCityName;
 
-    let responseDescription = formattedData.weather[0].description;
-    document.getElementsByClassName('description')[0].innerHTML = responseDescription;
+            let responseTemperature = formattedData.main.temp;
+            document.getElementsByClassName('temperature')[0].innerHTML = responseTemperature + "°C";
 
-    let responseHumidity = formattedData.main.humidity;
-    let responseWindSpeed = formattedData.wind.speed;
-    let responsePressure = formattedData.main.pressure;
+            let responseDescription = formattedData.weather[0].description;
+            document.getElementsByClassName('description')[0].innerHTML = responseDescription;
 
-    document.getElementById('humidity').innerHTML = responseHumidity + "%";
-    document.getElementById('windspeed').innerHTML = responseWindSpeed + " m/s";
-    document.getElementById('pressure').innerHTML = responsePressure + " hPa";
+            let responseHumidity = formattedData.main.humidity;
+            let responseWindSpeed = formattedData.wind.speed;
+            let responsePressure = formattedData.main.pressure;
 
-    // Weather icon
-    const iconMap = {
-        // Clear sky
-        '01d': 'clear-day.svg',        // Clear Sky Day
-        '01n': 'clear-night.svg',      // Clear Sky Night
-    
-    // Few clouds
-    '02d': 'cloudy-1-day.svg',     // Few Clouds Day
-    '02n': 'cloudy-1-night.svg',   // Few Clouds Night
-    
-    // Scattered clouds
-    '03d': 'cloudy-2-day.svg',     // Scattered Clouds Day
-    '03n': 'cloudy-2-night.svg',   // Scattered Clouds Night
-    
-    // Broken clouds
-    '04d': 'cloudy-3-day.svg',     // Broken Clouds Day
-    '04n': 'cloudy-3-night.svg',   // Broken Clouds Night
-    
-    // Rain
-    '09d': 'rainy-1-day.svg',      // Light Rain Day
-    '09n': 'rainy-1-night.svg',    // Light Rain Night
-    '10d': 'rainy-2-day.svg',      // Moderate Rain Day
-    '10n': 'rainy-2-night.svg',    // Moderate Rain Night
-    '11d': 'thunderstorms.svg',    // Thunderstorms
-    '11n': 'scattered-thunderstorms-night.svg', // Thunderstorms Night
-    
-    // Snow
-    '13d': 'snowy-1-day.svg',      // Light Snow Day
-    '13n': 'snowy-1-night.svg',    // Light Snow Night
-    '50d': 'haze-day.svg',         // Haze Day
-    '50n': 'haze-night.svg',       // Haze Night
-    
-    // Mixed conditions (rain & snow, etc.)
-    '12d': 'rain-and-snow-mix.svg',    // Rain and Snow Mix
-    '12n': 'rain-and-snow-mix.svg',    // Rain and Snow Mix Night
-    '14d': 'rain-and-sleet-mix.svg',   // Rain and Sleet Mix
-    '14n': 'rain-and-sleet-mix.svg',   // Rain and Sleet Mix Night
+            document.getElementById('humidity').innerHTML = responseHumidity + "%";
+            document.getElementById('windspeed').innerHTML = responseWindSpeed + " m/s";
+            document.getElementById('pressure').innerHTML = responsePressure + " hPa";
 
-    // Extreme conditions (Hurricanes, Dust, etc.)
-    '15d': 'hurricane.svg',        // Hurricane
-    '15n': 'hurricane.svg',        // Hurricane (Night)
-    
-    // Fog and Dust
-    '16d': 'fog.svg',              // Fog Day
-    '16n': 'fog-night.svg',        // Fog Night
-    '17d': 'dust.svg',             // Dust Day
-    '17n': 'dust.svg',             // Dust Night
-    
-    // Hail
-    '18d': 'hail.svg',             // Hail Day
-    '18n': 'hail.svg',             // Hail Night
-    
-    // Frost
-    '19d': 'frost.svg',            // Frost Day
-    '19n': 'frost-night.svg',      // Frost Night
-    
-    // Tropical Storm, Tornado, and similar extreme conditions
-    '20d': 'tropical-storm.svg',   // Tropical Storm Day
-    '20n': 'tropical-storm.svg',   // Tropical Storm Night
-    '21d': 'tornado.svg',          // Tornado Day
-    '21n': 'tornado.svg',          // Tornado Night
-};
+            // Weather icon
+            const iconMap = {
+                '01d': 'clear-day.svg',        // Clear Sky Day
+                '01n': 'clear-night.svg',      // Clear Sky Night
+                '02d': 'cloudy-1-day.svg',     // Few Clouds Day
+                '02n': 'cloudy-1-night.svg',   // Few Clouds Night
+                '03d': 'cloudy-2-day.svg',     // Scattered Clouds Day
+                '03n': 'cloudy-2-night.svg',   // Scattered Clouds Night
+                '04d': 'cloudy-3-day.svg',     // Broken Clouds Day
+                '04n': 'cloudy-3-night.svg',   // Broken Clouds Night
+                '09d': 'rainy-1-day.svg',      // Light Rain Day
+                '09n': 'rainy-1-night.svg',    // Light Rain Night
+                '10d': 'rainy-2-day.svg',      // Moderate Rain Day
+                '10n': 'rainy-2-night.svg',    // Moderate Rain Night
+                '11d': 'thunderstorms.svg',    // Thunderstorms
+                '11n': 'scattered-thunderstorms-night.svg', // Thunderstorms Night
+                '13d': 'snowy-1-day.svg',      // Light Snow Day
+                '13n': 'snowy-1-night.svg',    // Light Snow Night
+                '50d': 'haze-day.svg',         // Haze Day
+                '50n': 'haze-night.svg',       // Haze Night
+                '12d': 'rain-and-snow-mix.svg',    // Rain and Snow Mix
+                '12n': 'rain-and-snow-mix.svg',    // Rain and Snow Mix Night
+                '14d': 'rain-and-sleet-mix.svg',   // Rain and Sleet Mix
+                '14n': 'rain-and-sleet-mix.svg',   // Rain and Sleet Mix Night
+                '15d': 'hurricane.svg',        // Hurricane
+                '15n': 'hurricane.svg',        // Hurricane (Night)
+                '16d': 'fog.svg',              // Fog Day
+                '16n': 'fog-night.svg',        // Fog Night
+                '17d': 'dust.svg',             // Dust Day
+                '17n': 'dust.svg',             // Dust Night
+                '18d': 'hail.svg',             // Hail Day
+                '18n': 'hail.svg',             // Hail Night
+                '19d': 'frost.svg',            // Frost Day
+                '19n': 'frost-night.svg',      // Frost Night
+                '20d': 'tropical-storm.svg',   // Tropical Storm Day
+                '20n': 'tropical-storm.svg',   // Tropical Storm Night
+                '21d': 'tornado.svg',          // Tornado Day
+                '21n': 'tornado.svg',          // Tornado Night
+            };
 
-// Determine the appropriate icon based on the weather code
+            let iconCode = formattedData.weather[0].icon;
+            let iconFile = iconMap[iconCode] || 'default.svg'; // Fallback to 'default.svg' if not mapped
+            let iconUrl = `./images/${iconFile}`;
 
-let iconCode = formattedData.weather[0].icon;
-let iconFile = iconMap[iconCode] || 'default.svg'; // Fallback to 'default.svg' if not mapped
-    let iconUrl = `./images/${iconFile}`;
-    document.getElementById('weather-icon-img').src = iconUrl;
-    document.getElementById('weather-icon-img').alt = responseDescription;n;
-
-     // Show the icon by changing the display style to 'block' or remove the 'hidden' class
-    let weatherIconImg = document.getElementById('weather-icon-img');
-    weatherIconImg.src = iconUrl;
-    weatherIconImg.alt = responseDescription;
-    weatherIconImg.style.display = 'block';  // This makes the image visible
-}
-
-        
+            // Show the icon by changing the display style to 'block' or remove the 'hidden' class
+            let weatherIconImg = document.getElementById('weather-icon-img');
+            weatherIconImg.src = iconUrl;
+            weatherIconImg.alt = responseDescription;
+            weatherIconImg.style.display = 'block';  // This makes the image visible
+        }
     </script>
 </body>
 </html>
